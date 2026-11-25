@@ -1,0 +1,127 @@
+---
+import '../styles/global.css';
+
+// Shared page shell applying the portfolio visual system.
+// Slots: default (page content).
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'Portfolio', description = 'Placeholder portfolio for a computer science student.' } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a href="#main-content" class="visually-hidden">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="container">
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="/" class="brand" aria-label="Home">
+            <span class="mono">PORTFOLIO</span>
+          </a>
+          <ul class="nav-list">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="muted" style="font-size: var(--font-size-sm)">
+          Placeholder site. Real content added once the site is running.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--color-border-dark);
+    background: color-mix(in srgb, var(--color-bg-dark) 92%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+  }
+
+  .brand {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    letter-spacing: var(--letter-spacing-tight);
+    text-decoration: none;
+    color: var(--color-text-dark);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .brand:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-md);
+  }
+
+  .nav-list {
+    display: flex;
+    gap: var(--space-6);
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-list a {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-text-muted-dark);
+    padding: var(--space-2) 0;
+    border-bottom: 2px solid transparent;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .nav-list a:hover,
+  .nav-list a:focus-visible {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--color-border-dark);
+    padding: var(--space-12) 0;
+    margin-top: var(--space-20);
+  }
+
+  /* Tablet+ : show nav inline; below that, hide until a mobile menu is added */
+  @media (max-width: 767px) {
+    .nav-list {
+      display: none;
+    }
+  }
+</style>
